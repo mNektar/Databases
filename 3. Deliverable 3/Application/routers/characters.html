@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+  <div id="dataDisplay">
+    <h1>Πληροφορίες από τη Βάση Δεδομένων</h1>
+    <table  class="styled-table" id="dataTable">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Mother</th>
+          <th scope="col">Father</th>
+          <th scope="col">Age of Birth</th>
+          <th scope="col">Age of Death</th>
+          <th scope="col">Race</th>
+          <th scope="col">House</th>
+          <!-- Εδώ μπορείς να προσθέσεις και άλλες στήλες ανάλογα με τη βάση δεδομένων σου -->
+        </tr>
+      </thead>
+      <tbody id="dataBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    // Κάνουμε αίτηση προς τον server για τα δεδομένα
+    fetch('/getCharacters')
+      .then(response => response.json())
+      .then(data => {
+        const dataBody = document.getElementById('dataBody');
+        // Δημιουργούμε τις γραμμές του πίνακα με τα δεδομένα
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          const Name_Cell = document.createElement('td');
+          Name_Cell.textContent = item.Name;
+          const Mother_Cell = document.createElement('td');
+          Mother_Cell.textContent = item.Mother;
+          const Father_Cell = document.createElement('td');
+          Father_Cell.textContent = item.Father;
+          const Age_Of_Birth_Cell = document.createElement('td');
+          Age_Of_Birth_Cell.textContent = item.Age_of_Birth;
+          const Age_Of_Death_Cell = document.createElement('td');
+          Age_Of_Death_Cell.textContent = item.Age_of_Death;
+          const Race_Cell = document.createElement('td');
+          Race_Cell.textContent = item.Race;
+          const Houses_Cell = document.createElement('td');
+          Houses_Cell.textContent = item.House;
+          // Προσθήκη των κελιών στη γραμμή
+          row.appendChild(Name_Cell);
+          row.appendChild(Mother_Cell);
+          row.appendChild(Father_Cell);
+          row.appendChild(Age_Of_Birth_Cell);
+          row.appendChild(Age_Of_Death_Cell);
+          row.appendChild(Race_Cell);
+          row.appendChild(Houses_Cell);
+          // Προσθήκη της γραμμής στον πίνακα
+          dataBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Σφάλμα:', error));
+  </script>
+
+
+    <a href="/postCharacter"><button>ADD Character</button></a>
+
+
+</body>
+</html>
+
+<style>
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+</style>

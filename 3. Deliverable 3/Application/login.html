@@ -1,0 +1,58 @@
+
+<html>
+<body>
+<h1>USER LOGIN</h1>
+<form>
+    <p>Login to your account</p>
+    <div>
+        <label for="userId">User Id</label>
+        <input type="text" id="userId" name="userId">
+    </div>
+    <div>
+        <label for="pwd">Password</label>
+        <input type="password" id="pwd" name="pwd">
+    </div>
+    <div>
+        <button type="submit" value="Submit">Submit</button>
+    </div>
+</form>
+</body>
+</html>
+
+<style>
+    body{
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif ;
+        background-color: palegreen;
+    }
+    div{
+        padding-bottom: 10px;
+    }
+    button{
+        background-color: aqua;
+        border:none;
+        color:#ffffff;
+        padding: 15px 32px;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+    }
+    label{
+        display: inline-block;
+        min-width: 80px;
+    }
+    input[type=text], [type=password]{
+        width:30%;
+        padding:12px 20px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<?php
+$con = mysql_connect("localhost","root","");
+if (Ι$con){
+        die('Could not connect: ' . mysql_error());
+    }
+mysql_select_db("pmg",$con);
+$sql=""
+?>
+

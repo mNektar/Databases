@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+  <div id="dataDisplay">
+    <h1>Πληροφορίες από τη Βάση Δεδομένων</h1>
+    <table  class="styled-table" id="dataTable">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Editor</th>
+          <th scope="col">Illustrator</th>
+          <th scope="col">Date Published</th>
+          <th scope="col">Publisher</th>
+          <th scope="col">Pages</th>
+          <th scope="col">Genre</th>
+          <!-- Εδώ μπορείς να προσθέσεις και άλλες στήλες ανάλογα με τη βάση δεδομένων σου -->
+        </tr>
+      </thead>
+      <tbody id="dataBody"></tbody>
+    </table>
+  </div>
+
+  <a href="/postBook"><button>ADD Book</button></a>
+
+  <script>
+    // Κάνουμε αίτηση προς τον server για τα δεδομένα
+    fetch('/getBooks')
+      .then(response => response.json())
+      .then(data => {
+        const dataBody = document.getElementById('dataBody');
+        // Δημιουργούμε τις γραμμές του πίνακα με τα δεδομένα
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          const Title_Cell = document.createElement('td');
+          Title_Cell.textContent = item.Title;
+          const Editor_Cell = document.createElement('td');
+          Editor_Cell.textContent = item.Editor;
+          const Illustrator_Cell = document.createElement('td');
+          Illustrator_Cell.textContent = item.Illustrator;
+          const Date_Published_Cell = document.createElement('td');
+          Date_Published_Cell.textContent = item.Date_Published;
+          const Publisher_Cell = document.createElement('td');
+          Publisher_Cell.textContent = item.Publisher;
+          const Pages_Cell = document.createElement('td');
+          Pages_Cell.textContent = item.Pages;
+          const Genre_Cell = document.createElement('td');
+          Genre_Cell.textContent = item.Genre;
+          // Προσθήκη των κελιών στη γραμμή
+          row.appendChild(Title_Cell);
+          row.appendChild(Editor_Cell);
+          row.appendChild(Illustrator_Cell);
+          row.appendChild(Date_Published_Cell);
+          row.appendChild(Publisher_Cell);
+          row.appendChild(Pages_Cell);
+          row.appendChild(Genre_Cell);
+          // Προσθήκη της γραμμής στον πίνακα
+          dataBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Σφάλμα:', error));
+  </script>
+
+</body>
+</html>
+
+<style>
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+</style>
